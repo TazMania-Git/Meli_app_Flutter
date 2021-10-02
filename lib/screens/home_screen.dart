@@ -6,16 +6,30 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.yellow,
-      child: Center(
-          child: FloatingActionButton.large(
-        onPressed: () =>showSearch(context: context, delegate: SearchSellerDelegate()),
-        child: Icon(
-          Icons.search_rounded,
-          size: 70,
-          color: Colors.black87,
-        ),
-        backgroundColor: Colors.yellowAccent,
-      )),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+              child: FloatingActionButton.large(
+            onPressed: () =>
+                showSearch(context: context, delegate: SearchSellerDelegate()),
+            child: Icon(
+              Icons.search_rounded,
+              size: 70,
+              color: Colors.black87,
+            ),
+            backgroundColor: Colors.yellowAccent,
+          )),
+          Divider(),
+          Text(
+            "mercado libre",
+            style: TextStyle(
+                fontFamily: 'Harabara Mais Demo',
+                color: Color.fromRGBO(31, 56, 123, 1)
+                ),
+          ),
+        ],
+      ),
     );
   }
 }
