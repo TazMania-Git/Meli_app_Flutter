@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: Colors.yellow,
       title: 'Movie App',
       debugShowCheckedModeBanner: false,
       initialRoute: 'home',
@@ -19,6 +20,10 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
         color: Colors.indigo,
       )),
+      // theme: ThemeData(
+      //     primarySwatch: Colors.yellow,
+      //     canvasColor: Colors.yellow,
+      //     appBarTheme: AppBarTheme(color: Colors.yellow)),
     );
   }
 }
