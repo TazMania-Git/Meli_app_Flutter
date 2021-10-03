@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:meli_app_flutter/search/search_delegate.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.yellow,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-              child: FloatingActionButton.large(
+    return Scaffold(
+        body: Container(
+          color: Colors.yellow,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Divider(),
+              Image(image: AssetImage('assets/Meli.png')),
+              Text(
+                "mercado\n  libre",
+                style: TextStyle(
+                  wordSpacing: 3,
+                  height: 0.8,
+                  fontSize: 50,
+                  decoration: TextDecoration.none,
+                  fontFamily: 'Harabara Mais Demo',
+                  color: Color.fromRGBO(31, 56, 123, 1),
+                ),
+              )
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          child: FloatingActionButton.large(
             onPressed: () =>
                 showSearch(context: context, delegate: SearchSellerDelegate()),
             child: Icon(
@@ -19,18 +38,8 @@ class HomeScreen extends StatelessWidget {
               color: Colors.black87,
             ),
             backgroundColor: Colors.yellowAccent,
-          )),
-          Divider(),
-          Text(
-            "mercado libre",
-            style: TextStyle(
-                fontFamily: 'Harabara Mais Demo',
-                color: Color.fromRGBO(31, 56, 123, 1)
-                ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
