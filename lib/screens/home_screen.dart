@@ -13,15 +13,18 @@ class HomeScreen extends StatelessWidget {
             children: [
               Divider(),
               Image(image: AssetImage('assets/Meli.png')),
-              Text(
-                "mercado\n  libre",
-                style: TextStyle(
-                  wordSpacing: 3,
-                  height: 0.8,
-                  fontSize: 50,
-                  decoration: TextDecoration.none,
-                  fontFamily: 'Harabara Mais Demo',
-                  color: Color.fromRGBO(31, 56, 123, 1),
+              Padding(
+                padding: const EdgeInsets.only(left: 2),
+                child: Text(
+                  "mercado\n  libre",
+                  style: TextStyle(
+                    wordSpacing: 3,
+                    height: 0.8,
+                    fontSize: 50,
+                    decoration: TextDecoration.none,
+                    fontFamily: 'Harabara Mais Demo',
+                    color: Color.fromRGBO(31, 56, 123, 1),
+                  ),
                 ),
               )
             ],
@@ -29,15 +32,28 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
-          child: FloatingActionButton.large(
-            onPressed: () =>
-                showSearch(context: context, delegate: SearchSellerDelegate()),
-            child: Icon(
-              Icons.search_rounded,
-              size: 70,
-              color: Colors.black87,
+          child: Container(
+            height: 70,
+            width: 70,
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  spreadRadius: 4,
+                  color: Color.fromRGBO(31, 56, 123, 1).withOpacity(0.2),
+                  blurRadius: 7),
+            ], shape: BoxShape.circle),
+            child: FittedBox(
+              child: FloatingActionButton.large(
+                onPressed: () => showSearch(
+                    context: context, delegate: SearchSellerDelegate()),
+                child: Icon(
+                  Icons.search_rounded,
+                  size: 70,
+                  // color: Colors.black87,
+                  color: Color.fromRGBO(31, 56, 123, 1),
+                ),
+                backgroundColor: Colors.yellowAccent,
+              ),
             ),
-            backgroundColor: Colors.yellowAccent,
           ),
         ));
   }
