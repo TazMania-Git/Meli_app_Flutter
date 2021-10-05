@@ -4,6 +4,13 @@ class SearchSellerDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+          contentPadding: EdgeInsets.all(10),
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(30),
+              borderSide: BorderSide.none)),
       canvasColor: Colors.yellow,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.yellow,
