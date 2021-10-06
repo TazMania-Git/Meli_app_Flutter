@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:meli_app_flutter/widgets/card_swiper.dart';
 
 class SearchSellerDelegate extends SearchDelegate {
   @override
@@ -28,16 +30,16 @@ class SearchSellerDelegate extends SearchDelegate {
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // return [IconButton(onPressed: () => query = '', icon: Icon(Icons.clear))];
+    return [IconButton(onPressed: () => query = '', icon: Icon(Icons.clear))];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // return IconButton(
-    //     onPressed: () {
-    //       close(context, null);
-    //     },
-    //     icon: Icon(Icons.arrow_back));
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back));
   }
 
   @override
@@ -50,7 +52,7 @@ class SearchSellerDelegate extends SearchDelegate {
     if (query.isEmpty) {
       return _emptyData();
     }
-    return Container();
+    return CardSwiper(query);
   }
 
   Widget _emptyData() {
