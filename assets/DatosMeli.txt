@@ -5,18 +5,22 @@ Client Secret
 qvbaS2WelbdFCnLffNwkCbh7lZEeAZys
 
 
-code=TG-6157465fe8279c0008209034-28610621
+code=TG-615e5528be843f00093315b5-28610621
 
 
 
 
-Coloca la siguiente URL en la ventana de tu navegador para obtener la autorización:
+###Coloca la siguiente URL en la ventana de tu navegador para obtener la autorización##
+
 https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=8246960858213510&redirect_uri=https://www.mercadolibre.com.ar/
 
+////////////
 
-"access_token": "APP_USR-8246960858213510-100117-fc25c507d9def6b507d097a08334bd74-28610621",
+{
+    "access_token": "APP_USR-8246960858213510-100702-c14d83eebd98d6e87c74384bb58421cc-28610621",
     "token_type": "bearer",
     "expires_in": 21600,
     "scope": "offline_access read write",
     "user_id": 28610621,
-    "refresh_token": "TG-6157489df60720000932efb4-28610621"
+    "refresh_token": "TG-615e574e7471db0007010e00-28610621"
+}
