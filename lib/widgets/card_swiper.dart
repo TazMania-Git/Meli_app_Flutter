@@ -24,7 +24,7 @@ class CardSwiper extends StatelessWidget {
       child: Swiper(
         itemCount: 10,
         layout: SwiperLayout.DEFAULT,
-        viewportFraction: 0.5,
+        viewportFraction: 0.51,
         scale: 0,
         // itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.47,
@@ -35,7 +35,7 @@ class CardSwiper extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage("lib/assets/no-image.jpg"),
+                placeholder: AssetImage("assets/no-image.jpg"),
                 image: NetworkImage("https://via.placeholder.com/300x400"),
                 // image: NetworkImage(movie.fullPosterImag),
                 fit: BoxFit.cover,
