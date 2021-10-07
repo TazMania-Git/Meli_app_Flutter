@@ -1,5 +1,17 @@
+App ID
+8246960858213510
+
+Client Secret
+qvbaS2WelbdFCnLffNwkCbh7lZEeAZys
+
+
 code=TG-6157465fe8279c0008209034-28610621
 
+
+
+
+Coloca la siguiente URL en la ventana de tu navegador para obtener la autorización:
+https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=8246960858213510&redirect_uri=https://www.mercadolibre.com.ar/
 
 
 "access_token": "APP_USR-8246960858213510-100117-fc25c507d9def6b507d097a08334bd74-28610621",

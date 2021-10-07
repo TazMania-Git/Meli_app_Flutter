@@ -17,13 +17,16 @@ class CardSwiper extends StatelessWidget {
     //     ),
     //   );
     return Container(
+      padding: EdgeInsets.only(top: 15),
       width: double.infinity,
       height: size.height * 0.5,
       // color: Colors.red,
       child: Swiper(
         itemCount: 10,
-        layout: SwiperLayout.STACK,
-        itemWidth: size.width * 0.6,
+        layout: SwiperLayout.DEFAULT,
+        viewportFraction: 0.5,
+        scale: 0,
+        // itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.47,
         itemBuilder: (_, int index) {
           return GestureDetector(
