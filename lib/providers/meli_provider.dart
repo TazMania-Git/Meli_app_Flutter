@@ -28,7 +28,7 @@ class MeliProvider extends ChangeNotifier {
 
   getPersonalData() async {
     final getJsonData = await _getJsonData('users/me');
-    print(getJsonData['nickname']);
+    print(getJsonData);
   }
 
   getWithSellerId(int query) async {
