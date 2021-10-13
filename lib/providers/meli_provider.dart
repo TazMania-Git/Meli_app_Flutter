@@ -5,13 +5,14 @@ import 'package:http/http.dart' as http;
 
 class MeliProvider extends ChangeNotifier {
   String _apiKey =
-      'Bearer APP_USR-8246960858213510-100818-559f3dfb7da0c0c3cc32cc2725e434d6-28610621';
+      'Bearer APP_USR-8246960858213510-101301-7be22b0c0d608f6702d94eb9af332b26-28610621';
   String _baseUrl = 'api.mercadolibre.com';
 
   MeliProvider() {
     print('MeliProvider inicializado');
-    // getWithSellerId(179571326);
-    getPersonalData();
+    // getWithSellerId('TIENDASMERCADOLIBRE');
+    getWithSellerId(179571326);
+    //getPersonalData();
   }
 
   // Map<String, String> requestHeaders = {
@@ -31,11 +32,9 @@ class MeliProvider extends ChangeNotifier {
     print(getJsonData);
   }
 
-  getWithSellerId(int query) async {
-    final getJsonData = await _getJsonData('sites/MLA/search?seller_id=$query');
-    print(getJsonData);
-
-    // final nowPlayingResponse = NowPlayingResponse.fromJson(getJsonData);
-    // onDisplayMovies = nowPlayingResponse.results;
+  getWithSellerId(dynamic query) async {
+    final url = Uri.https(_baseUrl, 'sites/MLA/search', {'seller_id': '$query','nickname':'$query'});
+    final response = await http.get(url, headers: {'Authorization': _apiKey});
+    print(response.body);
   }
 }
