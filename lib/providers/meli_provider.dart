@@ -2,10 +2,11 @@ import 'dart:convert' as convert;
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:meli_app_flutter/models/seller_result.dart';
 
 class MeliProvider extends ChangeNotifier {
   String _apiKey =
-      'Bearer APP_USR-8246960858213510-101301-7be22b0c0d608f6702d94eb9af332b26-28610621';
+      'Bearer APP_USR-8246960858213510-101401-ae5d3d6af333d99608a48c2c1549ea8f-28610621';
   String _baseUrl = 'api.mercadolibre.com';
 
   MeliProvider() {
@@ -35,6 +36,8 @@ class MeliProvider extends ChangeNotifier {
   getWithSellerId(dynamic query) async {
     final url = Uri.https(_baseUrl, 'sites/MLA/search', {'seller_id': '$query','nickname':'$query'});
     final response = await http.get(url, headers: {'Authorization': _apiKey});
-    print(response.body);
+    final sellerResult = SellerResult.fromJson(response.body);
+    // print(response.body);
+    print(sellerResult.price);
   }
 }
