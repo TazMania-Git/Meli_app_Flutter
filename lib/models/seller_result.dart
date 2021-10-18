@@ -29,8 +29,6 @@ class Credits {
 
   factory Credits.fromJson(String str) => Credits.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Credits.fromMap(Map<String, dynamic> json) => Credits(
         siteId: siteIdValues.map[json["site_id"]],
         countryDefaultTimeZone: json["country_default_time_zone"],
@@ -45,20 +43,6 @@ class Credits {
         availableFilters: List<AvailableFilter>.from(
             json["available_filters"].map((x) => AvailableFilter.fromMap(x))),
       );
-
-  Map<String, dynamic> toMap() => {
-        "site_id": siteIdValues.reverse[siteId],
-        "country_default_time_zone": countryDefaultTimeZone,
-        "seller": seller.toMap(),
-        "paging": paging.toMap(),
-        "results": List<dynamic>.from(results.map((x) => x.toMap())),
-        "sort": sort.toMap(),
-        "available_sorts":
-            List<dynamic>.from(availableSorts.map((x) => x.toMap())),
-        "filters": List<dynamic>.from(filters.map((x) => x)),
-        "available_filters":
-            List<dynamic>.from(availableFilters.map((x) => x.toMap())),
-      };
 }
 
 class AvailableFilter {
@@ -77,8 +61,6 @@ class AvailableFilter {
   factory AvailableFilter.fromJson(String str) =>
       AvailableFilter.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory AvailableFilter.fromMap(Map<String, dynamic> json) => AvailableFilter(
         id: json["id"],
         name: json["name"],
@@ -86,13 +68,6 @@ class AvailableFilter {
         values: List<AvailableFilterValue>.from(
             json["values"].map((x) => AvailableFilterValue.fromMap(x))),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "type": type,
-        "values": List<dynamic>.from(values.map((x) => x.toMap())),
-      };
 }
 
 class AvailableFilterValue {
@@ -109,20 +84,12 @@ class AvailableFilterValue {
   factory AvailableFilterValue.fromJson(String str) =>
       AvailableFilterValue.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory AvailableFilterValue.fromMap(Map<String, dynamic> json) =>
       AvailableFilterValue(
         id: json["id"],
         name: json["name"],
         results: json["results"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "results": results,
-      };
 }
 
 class Sort {
@@ -136,17 +103,10 @@ class Sort {
 
   factory Sort.fromJson(String str) => Sort.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Sort.fromMap(Map<String, dynamic> json) => Sort(
         id: cityIdEnumValues.map[json["id"]],
         name: cityNameEnumValues.map[json["name"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": cityIdEnumValues.reverse[id],
-        "name": cityNameEnumValues.reverse[name],
-      };
 }
 
 enum CityIdEnum {
@@ -200,21 +160,12 @@ class Paging {
 
   factory Paging.fromJson(String str) => Paging.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Paging.fromMap(Map<String, dynamic> json) => Paging(
         total: json["total"],
         primaryResults: json["primary_results"],
         offset: json["offset"],
         limit: json["limit"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "total": total,
-        "primary_results": primaryResults,
-        "offset": offset,
-        "limit": limit,
-      };
 }
 
 class Result {
@@ -296,8 +247,6 @@ class Result {
 
   factory Result.fromJson(String str) => Result.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Result.fromMap(Map<String, dynamic> json) => Result(
         id: json["id"],
         siteId: siteIdValues.map[json["site_id"]],
@@ -339,45 +288,6 @@ class Result {
         winnerItemId: json["winner_item_id"],
         orderBackend: json["order_backend"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "site_id": siteIdValues.reverse[siteId],
-        "title": title,
-        "seller": seller.toMap(),
-        "price": price,
-        "prices": prices.toMap(),
-        "sale_price": salePrice,
-        "currency_id": currencyIdValues.reverse[currencyId],
-        "available_quantity": availableQuantity,
-        "sold_quantity": soldQuantity,
-        "buying_mode": buyingModeValues.reverse[buyingMode],
-        "listing_type_id": listingTypeIdValues.reverse[listingTypeId],
-        "stop_time": stopTime.toIso8601String(),
-        "condition": conditionValues.reverse[condition],
-        "permalink": permalink,
-        "thumbnail": thumbnail,
-        "thumbnail_id": thumbnailId,
-        "accepts_mercadopago": acceptsMercadopago,
-        "installments": installments.toMap(),
-        "address": address.toMap(),
-        "shipping": shipping.toMap(),
-        "seller_address": sellerAddress.toMap(),
-        "attributes": List<dynamic>.from(attributes.map((x) => x.toMap())),
-        "original_price": originalPrice == null ? null : originalPrice,
-        "category_id": categoryIdValues.reverse[categoryId],
-        "official_store_id": officialStoreId,
-        "domain_id": domainIdValues.reverse[domainId],
-        "catalog_product_id": catalogProductId,
-        "tags": List<dynamic>.from(tags.map((x) => resultTagValues.reverse[x])),
-        "catalog_listing": catalogListing,
-        "use_thumbnail_id": useThumbnailId,
-        "offer_score": offerScore,
-        "offer_share": offerShare,
-        "match_score": matchScore,
-        "winner_item_id": winnerItemId,
-        "order_backend": orderBackend,
-      };
 }
 
 class Address {
@@ -395,21 +305,12 @@ class Address {
 
   factory Address.fromJson(String str) => Address.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Address.fromMap(Map<String, dynamic> json) => Address(
         stateId: cityIdEnumValues.map[json["state_id"]],
         stateName: cityNameEnumValues.map[json["state_name"]],
         cityId: cityIdEnumValues.map[json["city_id"]],
         cityName: cityNameEnumValues.map[json["city_name"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "state_id": cityIdEnumValues.reverse[stateId],
-        "state_name": cityNameEnumValues.reverse[stateName],
-        "city_id": cityIdEnumValues.reverse[cityId],
-        "city_name": cityNameEnumValues.reverse[cityName],
-      };
 }
 
 class Attribute {
@@ -437,8 +338,6 @@ class Attribute {
 
   factory Attribute.fromJson(String str) => Attribute.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Attribute.fromMap(Map<String, dynamic> json) => Attribute(
         valueStruct: json["value_struct"] == null
             ? null
@@ -455,19 +354,6 @@ class Attribute {
         id: attributeIdValues.map[json["id"]],
         valueId: json["value_id"] == null ? null : json["value_id"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "value_struct": valueStruct == null ? null : valueStruct?.toMap(),
-        "values": List<dynamic>.from(values.map((x) => x.toMap())),
-        "source": source,
-        "name": attributeNameValues.reverse[name],
-        "value_name": valueName,
-        "attribute_group_id": attributeGroupIdValues.reverse[attributeGroupId],
-        "attribute_group_name":
-            attributeGroupNameValues.reverse[attributeGroupName],
-        "id": attributeIdValues.reverse[id],
-        "value_id": valueId == null ? null : valueId,
-      };
 }
 
 enum AttributeGroupId { OTHERS, EMPTY }
@@ -563,17 +449,10 @@ class Struct {
 
   factory Struct.fromJson(String str) => Struct.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Struct.fromMap(Map<String, dynamic> json) => Struct(
         number: json["number"].toDouble(),
         unit: unitValues.map[json["unit"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "number": number,
-        "unit": unitValues.reverse[unit],
-      };
 }
 
 enum Unit { KG, CM, G, VA, W, LB }
@@ -603,21 +482,12 @@ class AttributeValue {
   factory AttributeValue.fromJson(String str) =>
       AttributeValue.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory AttributeValue.fromMap(Map<String, dynamic> json) => AttributeValue(
         id: json["id"] == null ? null : json["id"],
         name: json["name"],
         struct: json["struct"] == null ? null : Struct.fromMap(json["struct"]),
         source: json["source"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id == null ? null : id,
-        "name": name,
-        "struct": struct == null ? null : struct?.toMap(),
-        "source": source,
-      };
 }
 
 enum BuyingMode { BUY_IT_NOW }
@@ -674,21 +544,12 @@ class Installments {
   factory Installments.fromJson(String str) =>
       Installments.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Installments.fromMap(Map<String, dynamic> json) => Installments(
         quantity: json["quantity"],
         amount: json["amount"].toDouble(),
         rate: json["rate"].toDouble(),
         currencyId: currencyIdValues.map[json["currency_id"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "quantity": quantity,
-        "amount": amount,
-        "rate": rate,
-        "currency_id": currencyIdValues.reverse[currencyId],
-      };
 }
 
 enum ListingTypeId { GOLD_SPECIAL }
@@ -715,8 +576,6 @@ class Prices {
 
   factory Prices.fromJson(String str) => Prices.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Prices.fromMap(Map<String, dynamic> json) => Prices(
         id: json["id"],
         prices: List<Price>.from(json["prices"].map((x) => Price.fromMap(x))),
@@ -728,18 +587,6 @@ class Prices {
         purchaseDiscounts:
             List<dynamic>.from(json["purchase_discounts"].map((x) => x)),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "prices": List<dynamic>.from(prices.map((x) => x.toMap())),
-        "presentation": presentation.toMap(),
-        "payment_method_prices":
-            List<dynamic>.from(paymentMethodPrices.map((x) => x)),
-        "reference_prices":
-            List<dynamic>.from(referencePrices.map((x) => x.toMap())),
-        "purchase_discounts":
-            List<dynamic>.from(purchaseDiscounts.map((x) => x)),
-      };
 }
 
 class Presentation {
@@ -752,15 +599,9 @@ class Presentation {
   factory Presentation.fromJson(String str) =>
       Presentation.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Presentation.fromMap(Map<String, dynamic> json) => Presentation(
         displayCurrency: currencyIdValues.map[json["display_currency"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "display_currency": currencyIdValues.reverse[displayCurrency],
-      };
 }
 
 class Price {
@@ -788,8 +629,6 @@ class Price {
 
   factory Price.fromJson(String str) => Price.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Price.fromMap(Map<String, dynamic> json) => Price(
         id: json["id"],
         type: priceTypeValues.map[json["type"]],
@@ -803,19 +642,6 @@ class Price {
             exchangeRateContextValues.map[json["exchange_rate_context"]],
         metadata: Metadata.fromMap(json["metadata"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "type": priceTypeValues.reverse[type],
-        "amount": amount,
-        "regular_amount": regularAmount == null ? null : regularAmount,
-        "currency_id": currencyIdValues.reverse[currencyId],
-        "last_updated": lastUpdated.toIso8601String(),
-        "conditions": conditions.toMap(),
-        "exchange_rate_context":
-            exchangeRateContextValues.reverse[exchangeRateContext],
-        "metadata": metadata.toMap(),
-      };
 }
 
 class Conditions {
@@ -834,8 +660,6 @@ class Conditions {
   factory Conditions.fromJson(String str) =>
       Conditions.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Conditions.fromMap(Map<String, dynamic> json) => Conditions(
         contextRestrictions: List<ContextRestriction>.from(
             json["context_restrictions"]
@@ -847,14 +671,6 @@ class Conditions {
             json["end_time"] == null ? null : DateTime.parse(json["end_time"]),
         eligible: json["eligible"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "context_restrictions": List<dynamic>.from(contextRestrictions
-            .map((x) => contextRestrictionValues.reverse[x])),
-        "start_time": startTime == null ? null : startTime?.toIso8601String(),
-        "end_time": endTime == null ? null : endTime?.toIso8601String(),
-        "eligible": eligible,
-      };
 }
 
 enum ContextRestriction { CHANNEL_MARKETPLACE, CHANNEL_MSHOPS }
@@ -871,9 +687,9 @@ final exchangeRateContextValues =
 
 class Metadata {
   Metadata({
-   required this.promotionId,
-   required this.promotionType,
-   required this.campaignId,
+    required this.promotionId,
+    required this.promotionType,
+    required this.campaignId,
   });
 
   NId? promotionId;
@@ -881,8 +697,6 @@ class Metadata {
   NId? campaignId;
 
   factory Metadata.fromJson(String str) => Metadata.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
 
   factory Metadata.fromMap(Map<String, dynamic> json) => Metadata(
         promotionId: json["promotion_id"] == null
@@ -895,16 +709,6 @@ class Metadata {
             ? null
             : nIdValues.map[json["campaign_id"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "promotion_id":
-            promotionId == null ? null : nIdValues.reverse[promotionId],
-        "promotion_type": promotionType == null
-            ? null
-            : promotionTypeValues.reverse[promotionType],
-        "campaign_id":
-            campaignId == null ? null : nIdValues.reverse[campaignId],
-      };
 }
 
 enum NId {
@@ -960,8 +764,6 @@ class ReferencePrice {
   factory ReferencePrice.fromJson(String str) =>
       ReferencePrice.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory ReferencePrice.fromMap(Map<String, dynamic> json) => ReferencePrice(
         id: json["id"],
         type: referencePriceTypeValues.map[json["type"]],
@@ -973,18 +775,6 @@ class ReferencePrice {
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
         lastUpdated: DateTime.parse(json["last_updated"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "type": referencePriceTypeValues.reverse[type],
-        "conditions": conditions.toMap(),
-        "amount": amount,
-        "currency_id": currencyIdValues.reverse[currencyId],
-        "exchange_rate_context":
-            exchangeRateContextValues.reverse[exchangeRateContext],
-        "tags": List<dynamic>.from(tags.map((x) => x)),
-        "last_updated": lastUpdated.toIso8601String(),
-      };
 }
 
 enum ReferencePriceType { WAS }
@@ -993,14 +783,14 @@ final referencePriceTypeValues = EnumValues({"was": ReferencePriceType.WAS});
 
 class ResultSeller {
   ResultSeller({
-   required this.id,
-   required this.permalink,
-   required this.registrationDate,
-   required this.carDealer,
-   required this.realEstateAgency,
-   required this.tags,
-   required this.sellerReputation,
-   required this.nickname,
+    required this.id,
+    required this.permalink,
+    required this.registrationDate,
+    required this.carDealer,
+    required this.realEstateAgency,
+    required this.tags,
+    required this.sellerReputation,
+    required this.nickname,
   });
 
   int id;
@@ -1015,8 +805,6 @@ class ResultSeller {
   factory ResultSeller.fromJson(String str) =>
       ResultSeller.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory ResultSeller.fromMap(Map<String, dynamic> json) => ResultSeller(
         id: json["id"],
         permalink: json["permalink"],
@@ -1029,17 +817,6 @@ class ResultSeller {
             PurpleSellerReputation.fromMap(json["seller_reputation"]),
         nickname: nicknameValues.map[json["nickname"]],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "permalink": permalink,
-        "registration_date": registrationDate.toIso8601String(),
-        "car_dealer": carDealer,
-        "real_estate_agency": realEstateAgency,
-        "tags": List<dynamic>.from(tags.map((x) => sellerTagValues.reverse[x])),
-        "seller_reputation": sellerReputation.toMap(),
-        "nickname": nicknameValues.reverse[nickname],
-      };
 }
 
 enum Nickname { TIENDASMERCADOLIBRE }
@@ -1049,10 +826,10 @@ final nicknameValues =
 
 class PurpleSellerReputation {
   PurpleSellerReputation({
-   required this.powerSellerStatus,
-   required this.levelId,
-   required this.metrics,
-   required this.transactions,
+    required this.powerSellerStatus,
+    required this.levelId,
+    required this.metrics,
+    required this.transactions,
   });
 
   PowerSellerStatus? powerSellerStatus;
@@ -1063,8 +840,6 @@ class PurpleSellerReputation {
   factory PurpleSellerReputation.fromJson(String str) =>
       PurpleSellerReputation.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory PurpleSellerReputation.fromMap(Map<String, dynamic> json) =>
       PurpleSellerReputation(
         powerSellerStatus:
@@ -1073,14 +848,6 @@ class PurpleSellerReputation {
         metrics: PurpleMetrics.fromMap(json["metrics"]),
         transactions: Transactions.fromMap(json["transactions"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "power_seller_status":
-            powerSellerStatusValues.reverse[powerSellerStatus],
-        "level_id": levelIdValues.reverse[levelId],
-        "metrics": metrics.toMap(),
-        "transactions": transactions.toMap(),
-      };
 }
 
 enum LevelId { THE_5_GREEN }
@@ -1089,10 +856,10 @@ final levelIdValues = EnumValues({"5_green": LevelId.THE_5_GREEN});
 
 class PurpleMetrics {
   PurpleMetrics({
-   required this.cancellations,
-   required this.claims,
-   required this.delayedHandlingTime,
-   required this.sales,
+    required this.cancellations,
+    required this.claims,
+    required this.delayedHandlingTime,
+    required this.sales,
   });
 
   Cancellations cancellations;
@@ -1103,8 +870,6 @@ class PurpleMetrics {
   factory PurpleMetrics.fromJson(String str) =>
       PurpleMetrics.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory PurpleMetrics.fromMap(Map<String, dynamic> json) => PurpleMetrics(
         cancellations: Cancellations.fromMap(json["cancellations"]),
         claims: Cancellations.fromMap(json["claims"]),
@@ -1112,20 +877,13 @@ class PurpleMetrics {
             Cancellations.fromMap(json["delayed_handling_time"]),
         sales: Sales.fromMap(json["sales"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "cancellations": cancellations.toMap(),
-        "claims": claims.toMap(),
-        "delayed_handling_time": delayedHandlingTime.toMap(),
-        "sales": sales.toMap(),
-      };
 }
 
 class Cancellations {
   Cancellations({
-   required this.period,
-   required this.rate,
-   required this.value,
+    required this.period,
+    required this.rate,
+    required this.value,
   });
 
   CancellationsPeriod? period;
@@ -1135,19 +893,11 @@ class Cancellations {
   factory Cancellations.fromJson(String str) =>
       Cancellations.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Cancellations.fromMap(Map<String, dynamic> json) => Cancellations(
         period: cancellationsPeriodValues.map[json["period"]],
         rate: json["rate"].toDouble(),
         value: json["value"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "period": cancellationsPeriodValues.reverse[period],
-        "rate": rate,
-        "value": value,
-      };
 }
 
 enum CancellationsPeriod { THE_60_DAYS }
@@ -1157,8 +907,8 @@ final cancellationsPeriodValues =
 
 class Sales {
   Sales({
-   required this.period,
-   required this.completed,
+    required this.period,
+    required this.completed,
   });
 
   CancellationsPeriod? period;
@@ -1166,17 +916,10 @@ class Sales {
 
   factory Sales.fromJson(String str) => Sales.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Sales.fromMap(Map<String, dynamic> json) => Sales(
         period: cancellationsPeriodValues.map[json["period"]],
         completed: json["completed"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "period": cancellationsPeriodValues.reverse[period],
-        "completed": completed,
-      };
 }
 
 enum PowerSellerStatus { PLATINUM }
@@ -1186,11 +929,11 @@ final powerSellerStatusValues =
 
 class Transactions {
   Transactions({
-   required this.canceled,
-   required this.period,
-   required this.total,
-   required this.ratings,
-   required this.completed,
+    required this.canceled,
+    required this.period,
+    required this.total,
+    required this.ratings,
+    required this.completed,
   });
 
   int canceled;
@@ -1202,8 +945,6 @@ class Transactions {
   factory Transactions.fromJson(String str) =>
       Transactions.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Transactions.fromMap(Map<String, dynamic> json) => Transactions(
         canceled: json["canceled"],
         period: transactionsPeriodValues.map[json["period"]],
@@ -1211,14 +952,6 @@ class Transactions {
         ratings: Ratings.fromMap(json["ratings"]),
         completed: json["completed"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "canceled": canceled,
-        "period": transactionsPeriodValues.reverse[period],
-        "total": total,
-        "ratings": ratings.toMap(),
-        "completed": completed,
-      };
 }
 
 enum TransactionsPeriod { HISTORIC }
@@ -1228,9 +961,9 @@ final transactionsPeriodValues =
 
 class Ratings {
   Ratings({
-   required this.negative,
-   required this.neutral,
-   required this.positive,
+    required this.negative,
+    required this.neutral,
+    required this.positive,
   });
 
   double negative;
@@ -1296,8 +1029,6 @@ class SellerAddress {
   factory SellerAddress.fromJson(String str) =>
       SellerAddress.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory SellerAddress.fromMap(Map<String, dynamic> json) => SellerAddress(
         id: json["id"],
         comment: json["comment"],
@@ -1309,27 +1040,15 @@ class SellerAddress {
         latitude: json["latitude"],
         longitude: json["longitude"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "comment": comment,
-        "address_line": addressLine,
-        "zip_code": zipCode,
-        "country": country.toMap(),
-        "state": state.toMap(),
-        "city": city.toMap(),
-        "latitude": latitude,
-        "longitude": longitude,
-      };
 }
 
 class Shipping {
   Shipping({
-   required this.freeShipping,
-   required this.mode,
-   required this.tags,
-   required this.logisticType,
-   required this.storePickUp,
+    required this.freeShipping,
+    required this.mode,
+    required this.tags,
+    required this.logisticType,
+    required this.storePickUp,
   });
 
   bool freeShipping;
@@ -1340,8 +1059,6 @@ class Shipping {
 
   factory Shipping.fromJson(String str) => Shipping.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory Shipping.fromMap(Map<String, dynamic> json) => Shipping(
         freeShipping: json["free_shipping"],
         mode: modeValues.map[json["mode"]],
@@ -1350,15 +1067,6 @@ class Shipping {
         logisticType: logisticTypeValues.map[json["logistic_type"]],
         storePickUp: json["store_pick_up"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "free_shipping": freeShipping,
-        "mode": modeValues.reverse[mode],
-        "tags":
-            List<dynamic>.from(tags.map((x) => shippingTagValues.reverse[x])),
-        "logistic_type": logisticTypeValues.reverse[logisticType],
-        "store_pick_up": storePickUp,
-      };
 }
 
 enum LogisticType { CROSS_DOCKING, FULFILLMENT, NOT_SPECIFIED }
@@ -1420,15 +1128,15 @@ final resultTagValues = EnumValues({
 
 class CreditsSeller {
   CreditsSeller({
-   required this.id,
-   required this.nickname,
-   required this.permalink,
-   required this.registrationDate,
-   required this.sellerReputation,
-   required this.realEstateAgency,
-   required this.carDealer,
-   required this.tags,
-   required this.eshop,
+    required this.id,
+    required this.nickname,
+    required this.permalink,
+    required this.registrationDate,
+    required this.sellerReputation,
+    required this.realEstateAgency,
+    required this.carDealer,
+    required this.tags,
+    required this.eshop,
   });
 
   int id;
@@ -1444,8 +1152,6 @@ class CreditsSeller {
   factory CreditsSeller.fromJson(String str) =>
       CreditsSeller.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory CreditsSeller.fromMap(Map<String, dynamic> json) => CreditsSeller(
         id: json["id"],
         nickname: nicknameValues.map[json["nickname"]],
@@ -1459,26 +1165,14 @@ class CreditsSeller {
             json["tags"].map((x) => sellerTagValues.map[x])),
         eshop: json["eshop"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "nickname": nicknameValues.reverse[nickname],
-        "permalink": permalink,
-        "registration_date": registrationDate.toIso8601String(),
-        "seller_reputation": sellerReputation.toMap(),
-        "real_estate_agency": realEstateAgency,
-        "car_dealer": carDealer,
-        "tags": List<dynamic>.from(tags.map((x) => sellerTagValues.reverse[x])),
-        "eshop": eshop,
-      };
 }
 
 class FluffySellerReputation {
   FluffySellerReputation({
-   required this.levelId,
-   required this.powerSellerStatus,
-   required this.transactions,
-   required this.metrics,
+    required this.levelId,
+    required this.powerSellerStatus,
+    required this.transactions,
+    required this.metrics,
   });
 
   LevelId? levelId;
@@ -1489,8 +1183,6 @@ class FluffySellerReputation {
   factory FluffySellerReputation.fromJson(String str) =>
       FluffySellerReputation.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory FluffySellerReputation.fromMap(Map<String, dynamic> json) =>
       FluffySellerReputation(
         levelId: levelIdValues.map[json["level_id"]],
@@ -1499,19 +1191,11 @@ class FluffySellerReputation {
         transactions: Transactions.fromMap(json["transactions"]),
         metrics: FluffyMetrics.fromMap(json["metrics"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "level_id": levelIdValues.reverse[levelId],
-        "power_seller_status":
-            powerSellerStatusValues.reverse[powerSellerStatus],
-        "transactions": transactions.toMap(),
-        "metrics": metrics.toMap(),
-      };
 }
 
 class FluffyMetrics {
   FluffyMetrics({
-   required this.sales,
+    required this.sales,
   });
 
   Sales sales;
@@ -1519,27 +1203,21 @@ class FluffyMetrics {
   factory FluffyMetrics.fromJson(String str) =>
       FluffyMetrics.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory FluffyMetrics.fromMap(Map<String, dynamic> json) => FluffyMetrics(
         sales: Sales.fromMap(json["sales"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "sales": sales.toMap(),
-      };
 }
 
 class EnumValues<T> {
   Map<String, T> map;
-  Map<T, String> reverseMap;
+  Map<T, String>? reverseMap;
 
   EnumValues(this.map);
 
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
+  // Map<T, String> get reverse {
+  //   if (reverseMap == null) {
+  //     reverseMap = map.map((k, v) => new MapEntry(v, k));
+  //   }
+  //   return reverseMap;
+  // }
 }
