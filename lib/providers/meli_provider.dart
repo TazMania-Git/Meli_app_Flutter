@@ -17,22 +17,11 @@ class MeliProvider extends ChangeNotifier {
     // getPersonalData();
   }
 
-  // Map<String, String> requestHeaders = {
-  //   'Content-type': 'application/json',
-  //   'Accept': 'application/json',
-  //   'Authorization': "_apiKey"
-  // };
-
   Future<String> _getJsonData(String endPoint, dynamic? query) async {
     final url = Uri.https(_baseUrl, endPoint, {'seller_id': '$query'});
     final response = await http.get(url, headers: {'Authorization': _apiKey});
     return response.body;
   }
-
-  // getPersonalData() async {
-  //   final getJsonData = await _getJsonData('users/me');
-  //   print(getJsonData);
-  // }
 
   getWithSellerId(dynamic query) async {
     final getJsonData = await _getJsonData('sites/MLA/search', query);
@@ -40,14 +29,25 @@ class MeliProvider extends ChangeNotifier {
     print(sellerResult.sellerId);
     print(sellerResult.nickName);
     // print(sellerResult.sellerItems[0].title);
-    for(int i=0;i<sellerResult.sellerItems.length;i++){
-    print(sellerResult.sellerItems[i].title);
+    for (int i = 0; i < sellerResult.sellerItems.length; i++) {
+      print(sellerResult.sellerItems[i].title);
     }
+
+    // #region OLD Test
+    // Map<String, String> requestHeaders = {
+    //   'Content-type': 'application/json',
+    //   'Accept': 'application/json',
+    //   'Authorization': "_apiKey"
+    // };
+
+    // getPersonalData() async {
+    //   final getJsonData = await _getJsonData('users/me');
+    //   print(getJsonData);
+    // }
+
     // final test = convert.json.decode(getJsonData);
     // print(test['results']);
-
     // print(getJsonData);
-
     // final url = Uri.https(_baseUrl, 'sites/MLA/search',
     //     {'seller_id': '$query', 'nickname': '$query'});
     // final response = await http.get(url, headers: {'Authorization': _apiKey
@@ -60,5 +60,7 @@ class MeliProvider extends ChangeNotifier {
     // final sellerResult = Credits.fromJson(response.body);
     // print(sellerResult);
     //  print(response.body);
+
+// #endregion
   }
 }
