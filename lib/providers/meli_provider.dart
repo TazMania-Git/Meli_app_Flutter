@@ -2,13 +2,13 @@ import 'dart:convert' as convert;
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
-import 'package:meli_app_flutter/models/seller_result.dart';
-// import 'package:meli_app_flutter/models/seller_result_test.dart';
+import 'package:meli_app_flutter/models/models.dart';
 
 class MeliProvider extends ChangeNotifier {
   String _apiKey =
-      'Bearer APP_USR-8246960858213510-101918-4619f64a75c0d868d2af61253327e284-28610621';
+      'Bearer APP_USR-8246960858213510-102001-346ab4ec1af79d2cb52069cd06f3cea0-28610621';
   String _baseUrl = 'api.mercadolibre.com';
+  List<Result> resultFromSeller = [];
 
   MeliProvider() {
     print('MeliProvider inicializado');
@@ -26,14 +26,16 @@ class MeliProvider extends ChangeNotifier {
   getWithSellerId(dynamic query) async {
     final getJsonData = await _getJsonData('sites/MLA/search', query);
     final sellerResult = SellerResults.fromJson(getJsonData);
-    print(sellerResult.sellerId);
-    print(sellerResult.nickName);
-    // print(sellerResult.sellerItems[0].title);
-    for (int i = 0; i < sellerResult.sellerItems.length; i++) {
-      print(sellerResult.sellerItems[i].title);
-    }
+    resultFromSeller = sellerResult.sellerItems;
 
-    // #region OLD Test
+    // print(sellerResult.sellerId);
+    // print(sellerResult.nickName);
+    // print(sellerResult.sellerItems[0].title);
+    // for (int i = 0; i < sellerResult.sellerItems.length; i++) {
+    //   print(sellerResult.sellerItems[i].title);
+    // }
+
+// #region OLD
     // Map<String, String> requestHeaders = {
     //   'Content-type': 'application/json',
     //   'Accept': 'application/json',
@@ -60,7 +62,6 @@ class MeliProvider extends ChangeNotifier {
     // final sellerResult = Credits.fromJson(response.body);
     // print(sellerResult);
     //  print(response.body);
-
 // #endregion
   }
 }

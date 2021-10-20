@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meli_app_flutter/providers/meli_provider.dart';
 import 'package:meli_app_flutter/widgets/card_swiper.dart';
+import 'package:provider/provider.dart';
 
 class SearchSellerDelegate extends SearchDelegate {
   @override
@@ -49,10 +51,12 @@ class SearchSellerDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final sellerProvider = Provider.of<MeliProvider>(context);
+
     if (query.isEmpty) {
       return _emptyData();
     }
-    return CardSwiper(query);
+    return CardSwiper(query, sellerProvider.resultFromSeller);
   }
 
   Widget _emptyData() {
