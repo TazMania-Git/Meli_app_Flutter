@@ -6,7 +6,7 @@ import 'package:meli_app_flutter/models/models.dart';
 
 class MeliProvider extends ChangeNotifier {
   String _apiKey =
-      'Bearer APP_USR-8246960858213510-102001-346ab4ec1af79d2cb52069cd06f3cea0-28610621';
+      'Bearer APP_USR-8246960858213510-102010-3b586fa8f5360b99375dfa4a6ee1e073-28610621';
   String _baseUrl = 'api.mercadolibre.com';
   List<Result> resultFromSeller = [];
 
@@ -28,7 +28,7 @@ class MeliProvider extends ChangeNotifier {
     final sellerResult = SellerResults.fromJson(getJsonData);
     resultFromSeller = sellerResult.sellerItems;
 
-    // print(sellerResult.sellerId);
+    print(sellerResult.sellerId);
     // print(sellerResult.nickName);
     // print(sellerResult.sellerItems[0].title);
     // for (int i = 0; i < sellerResult.sellerItems.length; i++) {

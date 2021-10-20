@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meli_app_flutter/models/result.dart';
 import 'package:meli_app_flutter/providers/meli_provider.dart';
 import 'package:meli_app_flutter/widgets/card_swiper.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +57,12 @@ class SearchSellerDelegate extends SearchDelegate {
     if (query.isEmpty) {
       return _emptyData();
     }
-    return CardSwiper(query, sellerProvider.resultFromSeller);
+    return ListView.builder(
+      itemCount: sellerProvider.resultFromSeller.length,
+        itemBuilder: (_, int index) =>
+            _ResultSuggestions(sellerProvider.resultFromSeller[index]));
+
+    // return CardSwiper(query, sellerProvider.resultFromSeller);
   }
 
   Widget _emptyData() {
@@ -67,6 +73,27 @@ class SearchSellerDelegate extends SearchDelegate {
         color: Colors.black38,
         size: 130,
       )),
+    );
+  }
+}
+
+class _ResultSuggestions extends StatelessWidget {
+  final Result result;
+
+  const _ResultSuggestions(this.result);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: FadeInImage(
+        placeholder: AssetImage('lib/assets/no-image.jpg'),
+        image: NetworkImage(result.thumbnail),
+        fit: BoxFit.contain,
+        width: 50,
+      ),
+      title: Text(result.title),
+      subtitle: Text(''),
+      onTap: () {},
     );
   }
 }

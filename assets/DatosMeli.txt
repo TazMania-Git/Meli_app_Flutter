@@ -17,7 +17,7 @@ https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=8246
 ////////////
 
 {
-    "access_token": "APP_USR-8246960858213510-102001-346ab4ec1af79d2cb52069cd06f3cea0-28610621",
+    "access_token": "APP_USR-8246960858213510-102010-3b586fa8f5360b99375dfa4a6ee1e073-28610621",
     "token_type": "bearer",
     "expires_in": 21600,
     "scope": "offline_access read write",
