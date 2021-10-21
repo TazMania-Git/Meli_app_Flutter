@@ -8,7 +8,7 @@ import 'package:meli_app_flutter/models/models.dart';
 
 class MeliProvider extends ChangeNotifier {
   String _apiKey =
-      'Bearer APP_USR-8246960858213510-102111-58aec4ceb95631616394ce6755c33cf9-28610621';
+      'Bearer APP_USR-8246960858213510-102118-fb2a7c4a1aa5e8c5a31c4eb901de45dd-28610621';
   String _baseUrl = 'api.mercadolibre.com';
   List<Result> resultFromSeller = [];
 

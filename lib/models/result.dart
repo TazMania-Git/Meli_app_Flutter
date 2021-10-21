@@ -31,7 +31,7 @@ class Result {
     required this.attributes,
     required this.originalPrice,
     required this.categoryId,
-    required this.officialStoreId,
+     this.officialStoreId,
     required this.domainId,
     this.catalogProductId,
     required this.tags,
@@ -69,7 +69,7 @@ class Result {
   List<Attribute> attributes;
   dynamic originalPrice;
   String categoryId;
-  int officialStoreId;
+  int? officialStoreId;
   String domainId;
   String? catalogProductId;
   List<String> tags;
@@ -128,13 +128,13 @@ class Address {
   Address({
     required this.stateId,
     required this.stateName,
-    required this.cityId,
+     this.cityId,
     required this.cityName,
   });
 
   String stateId;
   String stateName;
-  String cityId;
+  String? cityId;
   String cityName;
 
   factory Address.fromJson(String str) => Address.fromMap(json.decode(str));
@@ -403,17 +403,17 @@ class Seller {
 class SellerReputation {
   SellerReputation({
     required this.powerSellerStatus,
-    required this.realLevel,
+     this.realLevel,
     required this.levelId,
-    required this.protectionEndDate,
+     this.protectionEndDate,
     required this.metrics,
     required this.transactions,
   });
 
   String powerSellerStatus;
-  String realLevel;
+  String? realLevel;
   String levelId;
-  DateTime protectionEndDate;
+  String? protectionEndDate;
   Metrics metrics;
   Transactions transactions;
 
@@ -425,7 +425,7 @@ class SellerReputation {
         powerSellerStatus: json["power_seller_status"],
         realLevel: json["real_level"],
         levelId: json["level_id"],
-        protectionEndDate: DateTime.parse(json["protection_end_date"]),
+        protectionEndDate: json["protection_end_date"],
         metrics: Metrics.fromMap(json["metrics"]),
         transactions: Transactions.fromMap(json["transactions"]),
       );
@@ -457,25 +457,16 @@ class Metrics {
 
 class Cancellations {
   Cancellations({
-    required this.excluded,
     required this.period,
-    required this.rate,
-    required this.value,
   });
 
-  Excluded excluded;
   String period;
-  int rate;
-  int value;
 
   factory Cancellations.fromJson(String str) =>
       Cancellations.fromMap(json.decode(str));
 
   factory Cancellations.fromMap(Map<String, dynamic> json) => Cancellations(
-        excluded: Excluded.fromMap(json["excluded"]),
         period: json["period"],
-        rate: json["rate"],
-        value: json["value"],
       );
 }
 
@@ -601,11 +592,11 @@ class SellerAddress {
 
 class City {
   City({
-    required this.id,
+     this.id,
     required this.name,
   });
 
-  String id;
+  String? id;
   String name;
 
   factory City.fromJson(String str) => City.fromMap(json.decode(str));

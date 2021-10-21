@@ -32,7 +32,10 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
+  open_file: ^3.2.1
+  path_provider: ^2.0.5
   provider: ^6.0.1
+  syncfusion_flutter_pdf: ^19.3.46-beta
 
 dev_dependencies:
   flutter_lints: ^1.0.0
