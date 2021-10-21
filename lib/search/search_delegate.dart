@@ -16,7 +16,7 @@ class SearchSellerDelegate extends SearchDelegate {
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
               borderSide: BorderSide.none)),
-      canvasColor: Colors.yellow,
+      canvasColor: Colors.white,
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.yellow,
         iconTheme: IconThemeData.fallback(),
@@ -52,15 +52,22 @@ class SearchSellerDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final sellerProvider = Provider.of<MeliProvider>(context);
-
     if (query.isEmpty) {
       return _emptyData();
     }
-    return ListView.builder(
-      itemCount: sellerProvider.resultFromSeller.length,
-        itemBuilder: (_, int index) =>
-            _ResultSuggestions(sellerProvider.resultFromSeller[index]));
+    final sellerProvider = Provider.of<MeliProvider>(context);
+    sellerProvider.getSuggestionByQuery(query);
+
+    return StreamBuilder(
+        stream: sellerProvider.suggestionStream,
+        builder: (_, AsyncSnapshot<List<Result>> snapshot) {
+          if (!snapshot.hasData) return _emptyData();
+          final result = snapshot.data!;
+
+          return ListView.builder(
+              itemCount: result.length,
+              itemBuilder: (_, int index) => _ResultSuggestions(result[index]));
+        });
 
     // return CardSwiper(query, sellerProvider.resultFromSeller);
   }
@@ -86,7 +93,7 @@ class _ResultSuggestions extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: FadeInImage(
-        placeholder: AssetImage('lib/assets/no-image.jpg'),
+        placeholder: AssetImage('assets/no-image.jpg'),
         image: NetworkImage(result.thumbnail),
         fit: BoxFit.contain,
         width: 50,

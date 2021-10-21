@@ -33,9 +33,9 @@ class Result {
     required this.categoryId,
     required this.officialStoreId,
     required this.domainId,
-    required this.catalogProductId,
+    this.catalogProductId,
     required this.tags,
-    required this.catalogListing,
+    this.catalogListing,
     required this.useThumbnailId,
     required this.offerScore,
     required this.offerShare,
@@ -71,9 +71,9 @@ class Result {
   String categoryId;
   int officialStoreId;
   String domainId;
-  String catalogProductId;
+  String? catalogProductId;
   List<String> tags;
-  bool catalogListing;
+  bool? catalogListing;
   bool useThumbnailId;
   dynamic offerScore;
   dynamic offerShare;
@@ -149,7 +149,7 @@ class Address {
 
 class Attribute {
   Attribute({
-    required this.valueName,
+     this.valueName,
     required this.attributeGroupName,
     this.source,
     required this.attributeGroupId,
@@ -159,7 +159,7 @@ class Attribute {
     required this.values,
   });
 
-  String valueName;
+  String? valueName;
   String attributeGroupName;
   int? source;
   String attributeGroupId;
@@ -202,11 +202,11 @@ class Struct {
 class Value {
   Value({
     this.id,
-    required this.name,
+    this.name,
   });
 
   String? id;
-  String name;
+  String? name;
 
   factory Value.fromJson(String str) => Value.fromMap(json.decode(str));
 
