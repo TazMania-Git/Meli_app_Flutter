@@ -66,7 +66,10 @@ class SearchSellerDelegate extends SearchDelegate {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.yellow,
           onPressed: () {},
-          child: Icon(Icons.settings,color: Colors.black87,),
+          child: Icon(
+            Icons.settings,
+            color: Colors.black87,
+          ),
         ),
         body: StreamBuilder(
             stream: sellerProvider.suggestionStream,
@@ -92,16 +95,6 @@ class SearchSellerDelegate extends SearchDelegate {
         color: Colors.black38,
         size: 130,
       )),
-    );
-  }
-
-  Widget _createButton() {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.settings),
-      ),
     );
   }
 }
