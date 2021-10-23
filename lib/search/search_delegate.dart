@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:meli_app_flutter/helpers/mobile_pdf_creator.dart';
 import 'package:meli_app_flutter/models/result.dart';
 import 'package:meli_app_flutter/providers/meli_provider.dart';
@@ -50,41 +51,76 @@ class SearchSellerDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("Results");
+    return buildSuggestions(context);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    ValueNotifier<bool> isDialOpen = ValueNotifier(false);
     if (query.isEmpty) {
       return _emptyData();
     } else {
       final sellerProvider = Provider.of<MeliProvider>(context);
       sellerProvider.getSuggestionByQuery(query);
 
-      return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.yellow,
-          onPressed: () {},
-          child: Icon(
-            Icons.settings,
-            color: Colors.black87,
+      return WillPopScope(
+        onWillPop: () async {
+          if (isDialOpen.value) {
+            isDialOpen.value = false;
+            return false;
+          } else {
+            return true;
+          }
+        },
+        child: Scaffold(
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: SpeedDial(
+            animatedIconTheme: IconThemeData(color: Colors.black87),
+            animatedIcon: AnimatedIcons.menu_home,
+            openCloseDial: isDialOpen,
+            backgroundColor: Colors.yellow,
+            overlayColor: Colors.grey,
+            overlayOpacity: 0.5,
+            spacing: 15,
+            spaceBetweenChildren: 15,
+            closeManually: true,
+            children: [
+              SpeedDialChild(
+                  child: Icon(Icons.contact_support_outlined),
+                  label: 'About',
+                  backgroundColor: Colors.blueAccent,
+                  onTap: () {
+                    print('About');
+                  }),
+              SpeedDialChild(
+                  child: Icon(Icons.file_download),
+                  label: 'Download PDF',
+                  onTap: () {
+                    print('Download PDF');
+                  }),
+              SpeedDialChild(
+                  child: Icon(Icons.update),
+                  label: 'Refresh Token',
+                  onTap: () {
+                    sellerProvider.refreshToken();
+                    print('Refresh Token');
+                  }),
+            ],
           ),
-        ),
-        body: StreamBuilder(
-            stream: sellerProvider.suggestionStream,
-            builder: (_, AsyncSnapshot<List<Result>> snapshot) {
-              if (!snapshot.hasData) return _emptyData();
-              final result = snapshot.data!;
+          body: StreamBuilder(
+              stream: sellerProvider.suggestionStream,
+              builder: (_, AsyncSnapshot<List<Result>> snapshot) {
+                if (!snapshot.hasData) return _emptyData();
+                final result = snapshot.data!;
 
-              return ListView.builder(
-                  itemCount: result.length,
-                  itemBuilder: (_, int index) =>
-                      _ResultSuggestions(result[index]));
-            }),
+                return ListView.builder(
+                    itemCount: result.length,
+                    itemBuilder: (_, int index) =>
+                        _ResultSuggestions(result[index]));
+              }),
+        ),
       );
     }
-    // return CardSwiper(query, sellerProvider.resultFromSeller);
   }
 
   Widget _emptyData() {

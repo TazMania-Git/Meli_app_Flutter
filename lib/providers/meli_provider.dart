@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:meli_app_flutter/helpers/debouncer.dart';
 import 'package:meli_app_flutter/models/models.dart';
+import 'package:meli_app_flutter/models/token.dart';
 
 class MeliProvider extends ChangeNotifier {
-  String _apiKey =
-      'Bearer APP_USR-8246960858213510-102118-fb2a7c4a1aa5e8c5a31c4eb901de45dd-28610621';
+// String _apiKey =
+//       'Bearer APP_USR-8246960858213510-102321-402eb1e526c7a245b8a490b666ac01ba-28610621';
   String _baseUrl = 'api.mercadolibre.com';
   List<Result> resultFromSeller = [];
+  late Token token;
+  String _apiKey = '';
 
   final debouncer = Debouncer(duration: Duration(milliseconds: 500));
   final StreamController<List<Result>> _suggestionsStreamController =
@@ -29,7 +33,12 @@ class MeliProvider extends ChangeNotifier {
     final url = Uri.https(
         _baseUrl, endPoint, {'seller_id': '$query', 'nickname': '$query'});
     final response = await http.get(url, headers: {'Authorization': _apiKey});
-    return response.body;
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return 'Request failed with status: ${response.statusCode}. Maybe if you refresh the token?';
+    }
   }
 
   Future<List<Result>> getWithSellerId(dynamic query) async {
@@ -88,5 +97,23 @@ class MeliProvider extends ChangeNotifier {
       debouncer.value = searchTerm;
     });
     Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
+  }
+
+  void refreshToken() async {
+    final url = Uri.https(_baseUrl, 'oauth/token');
+
+    var response = await http.post(url,
+        body: json.encode({
+          "grant_type": "refresh_token",
+          "client_id": "8246960858213510",
+          "client_secret": "qvbaS2WelbdFCnLffNwkCbh7lZEeAZys",
+          "refresh_token": "TG-615e574e7471db0007010e00-28610621"
+        }),
+        headers: {"Accept": "application/json"});
+
+    token = Token.fromJson(response.body);
+    _apiKey = token.tokenType + '' + token.accessToken;
+    print(response.body);
+    print(_apiKey);
   }
 }

@@ -7,7 +7,10 @@ qvbaS2WelbdFCnLffNwkCbh7lZEeAZys
 
 code=TG-615e5528be843f00093315b5-28610621
 
-
+sellers
+EXPERTIENDA
+BSK-IMPORTS
+MI SOUVENIR
 
 
 ###Coloca la siguiente URL en la ventana de tu navegador para obtener la autorización##
@@ -17,7 +20,7 @@ https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=8246
 ////////////
 
 {
-    "access_token": "APP_USR-8246960858213510-102118-fb2a7c4a1aa5e8c5a31c4eb901de45dd-28610621",
+    "access_token": "APP_USR-8246960858213510-102321-402eb1e526c7a245b8a490b666ac01ba-28610621",
     "token_type": "bearer",
     "expires_in": 21600,
     "scope": "offline_access read write",
