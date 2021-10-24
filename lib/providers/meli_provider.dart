@@ -112,7 +112,7 @@ class MeliProvider extends ChangeNotifier {
         headers: {"Accept": "application/json"});
 
     token = Token.fromJson(response.body);
-    _apiKey = token.tokenType + '' + token.accessToken;
+    _apiKey = token.tokenType + ' ' + token.accessToken;
     print(response.body);
     print(_apiKey);
   }

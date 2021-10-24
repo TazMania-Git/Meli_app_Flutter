@@ -62,6 +62,7 @@ class SearchSellerDelegate extends SearchDelegate {
     } else {
       final sellerProvider = Provider.of<MeliProvider>(context);
       sellerProvider.getSuggestionByQuery(query);
+      late Result resultForPdfCreator;
 
       return WillPopScope(
         onWillPop: () async {
@@ -96,6 +97,7 @@ class SearchSellerDelegate extends SearchDelegate {
                   child: Icon(Icons.file_download),
                   label: 'Download PDF',
                   onTap: () {
+                    _createPDF(resultForPdfCreator);
                     print('Download PDF');
                   }),
               SpeedDialChild(
@@ -115,8 +117,10 @@ class SearchSellerDelegate extends SearchDelegate {
 
                 return ListView.builder(
                     itemCount: result.length,
-                    itemBuilder: (_, int index) =>
-                        _ResultSuggestions(result[index]));
+                    itemBuilder: (_, int index) {
+                      resultForPdfCreator = result[index];
+                      return _ResultSuggestions(result[index]);
+                    });
               }),
         ),
       );
@@ -151,59 +155,80 @@ class _ResultSuggestions extends StatelessWidget {
       ),
       title: Text(result.title),
       subtitle: Text('Seller: ${result.seller.nickname}'),
+      trailing: Text('ID: ${result.seller.id}'),
       onTap: () {},
     );
   }
 }
 
-Future<void> _createPDF() async {
+Future<void> _createPDF(Result resultMeli) async {
   PdfDocument document = PdfDocument();
   final page = document.pages.add();
 
-  page.graphics.drawString('Welcome to PDF Succinctly!',
-      PdfStandardFont(PdfFontFamily.helvetica, 30));
+  page.graphics.drawString('${resultMeli.seller.nickname} - ID ${resultMeli.seller.id}',
+      PdfStandardFont(PdfFontFamily.courier, 25,
+      style: PdfFontStyle.bold,
+      ),
+      brush: PdfBrushes.red,
+      );
 
-  page.graphics.drawImage(PdfBitmap(await _readImageData('Pdf_Succinctly.jpg')),
-      Rect.fromLTWH(0, 100, 440, 550));
+  // page.graphics.drawImage(PdfBitmap(await _readImageData('Meli.png')),
+  //     Rect.fromLTWH(0, 10, 10, 10));
 
   PdfGrid grid = PdfGrid();
   grid.style = PdfGridStyle(
-      font: PdfStandardFont(PdfFontFamily.helvetica, 30),
+      font: PdfStandardFont(PdfFontFamily.helvetica, 12),
       cellPadding: PdfPaddings(left: 5, right: 2, top: 2, bottom: 2));
 
   grid.columns.add(count: 3);
   grid.headers.add(1);
 
   PdfGridRow header = grid.headers[0];
-  header.cells[0].value = 'Roll No';
-  header.cells[1].value = 'Name';
-  header.cells[2].value = 'Class';
+  header.cells[0].value = 'Title';
+  header.cells[1].value = 'ID';
+  header.cells[2].value = 'Price';
+  header.style = PdfGridRowStyle(
+    backgroundBrush: PdfBrushes.lightBlue,
+    textBrush: PdfBrushes.darkBlue,
+    );
 
+for(int i=0;i<=resultMeli.title.length;i++){
   PdfGridRow row = grid.rows.add();
-  row.cells[0].value = '1';
-  row.cells[1].value = 'Arya';
-  row.cells[2].value = '6';
+  row.cells[0].value = resultMeli.title;
+  row.cells[1].value = resultMeli.id;
+  row.cells[2].value = '\$ ${resultMeli.price}';
 
-  row = grid.rows.add();
-  row.cells[0].value = '2';
-  row.cells[1].value = 'John';
-  row.cells[2].value = '9';
+  row.style = PdfGridRowStyle(
 
-  row = grid.rows.add();
-  row.cells[0].value = '3';
-  row.cells[1].value = 'Tony';
-  row.cells[2].value = '8';
+  );
 
+}
+
+ // PdfGridRow row = grid.rows.add();
+  // row.cells[0].value = '1';
+  // row.cells[1].value = 'Arya';
+  // row.cells[2].value = '6';
+
+  // row = grid.rows.add();
+  // row.cells[0].value = '2';
+  // row.cells[1].value = 'John';
+  // row.cells[2].value = '9';
+
+  // row = grid.rows.add();
+  // row.cells[0].value = '3';
+  // row.cells[1].value = 'Tony';
+  // row.cells[2].value = '8';
+  
   grid.draw(
-      page: document.pages.add(), bounds: const Rect.fromLTWH(0, 0, 0, 0));
+      page: page, bounds: const Rect.fromLTWH(0, 60, 0, 0));
 
   List<int> bytes = document.save();
   document.dispose();
 
-  saveAndLaunchFile(bytes, 'Output.pdf');
+  saveAndLaunchFile(bytes, '${resultMeli.seller.nickname}.pdf');
 }
 
 Future<Uint8List> _readImageData(String name) async {
-  final data = await rootBundle.load('images/$name');
+  final data = await rootBundle.load('assets/$name');
   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 }

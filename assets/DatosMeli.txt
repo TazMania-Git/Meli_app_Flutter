@@ -11,6 +11,8 @@ sellers
 EXPERTIENDA
 BSK-IMPORTS
 MI SOUVENIR
+CASTILLOSACIFIA
+OVERHARD
 
 
 ###Coloca la siguiente URL en la ventana de tu navegador para obtener la autorización##
