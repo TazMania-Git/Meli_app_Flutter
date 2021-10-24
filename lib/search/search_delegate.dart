@@ -4,7 +4,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:meli_app_flutter/helpers/mobile_pdf_creator.dart';
 import 'package:meli_app_flutter/models/result.dart';
 import 'package:meli_app_flutter/providers/meli_provider.dart';
-import 'package:meli_app_flutter/widgets/card_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'dart:typed_data';
@@ -22,7 +21,7 @@ class SearchSellerDelegate extends SearchDelegate {
               borderSide: BorderSide.none)),
       canvasColor: Colors.white,
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Color.fromRGBO(254, 231, 1, 1),
         iconTheme: IconThemeData.fallback(),
       ),
     );
@@ -91,6 +90,8 @@ class SearchSellerDelegate extends SearchDelegate {
                   label: 'About',
                   backgroundColor: Colors.blueAccent,
                   onTap: () {
+                    isDialOpen.value = false;
+                    _mostrarAlerta(context);
                     print('About');
                   }),
               SpeedDialChild(
@@ -119,6 +120,7 @@ class SearchSellerDelegate extends SearchDelegate {
                     itemCount: result.length,
                     itemBuilder: (_, int index) {
                       resultForPdfCreator = result[index];
+                      Divider();
                       return _ResultSuggestions(result[index]);
                     });
               }),
@@ -165,12 +167,15 @@ Future<void> _createPDF(Result resultMeli) async {
   PdfDocument document = PdfDocument();
   final page = document.pages.add();
 
-  page.graphics.drawString('${resultMeli.seller.nickname} - ID ${resultMeli.seller.id}',
-      PdfStandardFont(PdfFontFamily.courier, 25,
+  page.graphics.drawString(
+    '${resultMeli.seller.nickname} - ID ${resultMeli.seller.id}',
+    PdfStandardFont(
+      PdfFontFamily.courier,
+      25,
       style: PdfFontStyle.bold,
-      ),
-      brush: PdfBrushes.red,
-      );
+    ),
+    brush: PdfBrushes.red,
+  );
 
   // page.graphics.drawImage(PdfBitmap(await _readImageData('Meli.png')),
   //     Rect.fromLTWH(0, 10, 10, 10));
@@ -190,21 +195,18 @@ Future<void> _createPDF(Result resultMeli) async {
   header.style = PdfGridRowStyle(
     backgroundBrush: PdfBrushes.lightBlue,
     textBrush: PdfBrushes.darkBlue,
-    );
-
-for(int i=0;i<=resultMeli.title.length;i++){
-  PdfGridRow row = grid.rows.add();
-  row.cells[0].value = resultMeli.title;
-  row.cells[1].value = resultMeli.id;
-  row.cells[2].value = '\$ ${resultMeli.price}';
-
-  row.style = PdfGridRowStyle(
-
   );
 
-}
+  for (int i = 0; i <= resultMeli.title.length; i++) {
+    PdfGridRow row = grid.rows.add();
+    row.cells[0].value = resultMeli.title;
+    row.cells[1].value = resultMeli.id;
+    row.cells[2].value = '\$ ${resultMeli.price}';
 
- // PdfGridRow row = grid.rows.add();
+    row.style = PdfGridRowStyle();
+  }
+
+  // PdfGridRow row = grid.rows.add();
   // row.cells[0].value = '1';
   // row.cells[1].value = 'Arya';
   // row.cells[2].value = '6';
@@ -218,9 +220,8 @@ for(int i=0;i<=resultMeli.title.length;i++){
   // row.cells[0].value = '3';
   // row.cells[1].value = 'Tony';
   // row.cells[2].value = '8';
-  
-  grid.draw(
-      page: page, bounds: const Rect.fromLTWH(0, 60, 0, 0));
+
+  grid.draw(page: page, bounds: const Rect.fromLTWH(0, 60, 0, 0));
 
   List<int> bytes = document.save();
   document.dispose();
@@ -231,4 +232,62 @@ for(int i=0;i<=resultMeli.title.length;i++){
 Future<Uint8List> _readImageData(String name) async {
   final data = await rootBundle.load('assets/$name');
   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+}
+
+void _mostrarAlerta(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (context) {
+      return AlertDialog(
+        titleTextStyle: TextStyle(
+          color: Color.fromRGBO(31, 56, 123, 1),
+          fontFamily: 'Harabara Mais Demo',
+          fontSize: 25,
+        ),
+        contentTextStyle: TextStyle(
+          color: Color.fromRGBO(31, 56, 123, 1),
+          fontFamily: 'Harabara Mais Demo',
+          fontSize: 20,
+        ),
+        backgroundColor: Colors.yellow[400],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text("Desarrollado por:"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("Franco Nicolás Nallino"),
+            SizedBox(
+              height: 10,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image(
+                image: AssetImage('assets/Taz.jpg'),
+                fit: BoxFit.contain,
+                height: 150,
+                width: 150,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text("nallinon@gmail.com"),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "Ok",
+                style: TextStyle(
+                  color: Color.fromRGBO(31, 56, 123, 1),
+                ),
+              ))
+        ],
+      );
+    },
+  );
 }
