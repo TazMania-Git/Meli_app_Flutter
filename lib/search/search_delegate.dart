@@ -120,7 +120,6 @@ class SearchSellerDelegate extends SearchDelegate {
                     itemCount: result.length,
                     itemBuilder: (_, int index) {
                       resultForPdfCreator = result[index];
-                      Divider();
                       return _ResultSuggestions(result[index]);
                     });
               }),
@@ -160,6 +159,7 @@ class _ResultSuggestions extends StatelessWidget {
       trailing: Text('ID: ${result.seller.id}'),
       onTap: () {},
     );
+    Divider();
   }
 }
 
