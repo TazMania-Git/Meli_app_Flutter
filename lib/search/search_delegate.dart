@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:meli_app_flutter/helpers/circularIndicator.dart';
 import 'package:meli_app_flutter/helpers/mobile_pdf_creator.dart';
 import 'package:meli_app_flutter/models/result.dart';
 import 'package:meli_app_flutter/providers/meli_provider.dart';
@@ -62,7 +63,7 @@ class SearchSellerDelegate extends SearchDelegate {
       final sellerProvider = Provider.of<MeliProvider>(context);
       sellerProvider.getSuggestionByQuery(query);
       late List<Result> resultForPdfCreator;
-
+      
       return WillPopScope(
         onWillPop: () async {
           if (isDialOpen.value) {
@@ -113,7 +114,7 @@ class SearchSellerDelegate extends SearchDelegate {
           body: StreamBuilder(
               stream: sellerProvider.suggestionStream,
               builder: (_, AsyncSnapshot<List<Result>> snapshot) {
-                if (!snapshot.hasData) return _emptyData();
+                if (!snapshot.hasData || snapshot.connectionState == ConnectionState.waiting) return CircularIndicatorMeli();
                 final result = snapshot.data!;
                 resultForPdfCreator = result;
 
@@ -196,7 +197,7 @@ Future<void> _createPDF(List<Result> resultMeli) async {
     textBrush: PdfBrushes.darkBlue,
   );
 
-  for (int i = 0; i <= resultMeli.length; i++) {
+  for (int i = 0; i < resultMeli.length; i++) {
     PdfGridRow row = grid.rows.add();
     row.cells[0].value = resultMeli[i].title;
     row.cells[1].value = resultMeli[i].id;

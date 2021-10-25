@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData.dark().copyWith(
           appBarTheme: AppBarTheme(
-        color: Colors.indigo,
+        // color: Colors.indigo,
       )),
       // theme: ThemeData(
       //     primarySwatch: Colors.yellow,
