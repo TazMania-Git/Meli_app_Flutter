@@ -9,8 +9,6 @@ import 'package:meli_app_flutter/models/models.dart';
 import 'package:meli_app_flutter/models/token.dart';
 
 class MeliProvider extends ChangeNotifier {
-// String _apiKey =
-//       'Bearer APP_USR-8246960858213510-102321-402eb1e526c7a245b8a490b666ac01ba-28610621';
   String _baseUrl = 'api.mercadolibre.com';
   List<Result> resultFromSeller = [];
   late Token token;
@@ -105,9 +103,9 @@ class MeliProvider extends ChangeNotifier {
     var response = await http.post(url,
         body: json.encode({
           "grant_type": "refresh_token",
-          "client_id": "8246960858213510",
-          "client_secret": "qvbaS2WelbdFCnLffNwkCbh7lZEeAZys",
-          "refresh_token": "TG-615e574e7471db0007010e00-28610621"
+          "client_id": "",
+          "client_secret": "",
+          "refresh_token": ""
         }),
         headers: {"Accept": "application/json"});
 
