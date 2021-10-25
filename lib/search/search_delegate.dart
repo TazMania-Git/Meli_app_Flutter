@@ -61,7 +61,7 @@ class SearchSellerDelegate extends SearchDelegate {
     } else {
       final sellerProvider = Provider.of<MeliProvider>(context);
       sellerProvider.getSuggestionByQuery(query);
-      late Result resultForPdfCreator;
+      late List<Result> resultForPdfCreator;
 
       return WillPopScope(
         onWillPop: () async {
@@ -115,11 +115,11 @@ class SearchSellerDelegate extends SearchDelegate {
               builder: (_, AsyncSnapshot<List<Result>> snapshot) {
                 if (!snapshot.hasData) return _emptyData();
                 final result = snapshot.data!;
+                resultForPdfCreator = result;
 
                 return ListView.builder(
                     itemCount: result.length,
                     itemBuilder: (_, int index) {
-                      resultForPdfCreator = result[index];
                       return _ResultSuggestions(result[index]);
                     });
               }),
@@ -159,16 +159,15 @@ class _ResultSuggestions extends StatelessWidget {
       trailing: Text('ID: ${result.seller.id}'),
       onTap: () {},
     );
-    Divider();
   }
 }
 
-Future<void> _createPDF(Result resultMeli) async {
+Future<void> _createPDF(List<Result> resultMeli) async {
   PdfDocument document = PdfDocument();
   final page = document.pages.add();
 
   page.graphics.drawString(
-    '${resultMeli.seller.nickname} - ID ${resultMeli.seller.id}',
+    '${resultMeli[0].seller.nickname} - ID ${resultMeli[0].seller.id}',
     PdfStandardFont(
       PdfFontFamily.courier,
       25,
@@ -197,13 +196,14 @@ Future<void> _createPDF(Result resultMeli) async {
     textBrush: PdfBrushes.darkBlue,
   );
 
-  for (int i = 0; i <= resultMeli.title.length; i++) {
+  for (int i = 0; i <= resultMeli.length; i++) {
     PdfGridRow row = grid.rows.add();
-    row.cells[0].value = resultMeli.title;
-    row.cells[1].value = resultMeli.id;
-    row.cells[2].value = '\$ ${resultMeli.price}';
-
+    row.cells[0].value = resultMeli[i].title;
+    row.cells[1].value = resultMeli[i].id;
+    row.cells[2].value = '\$ ${resultMeli[i].price}';
     row.style = PdfGridRowStyle();
+    // print(
+    //     '${resultMeli[i].title} - ${resultMeli[i].id} -\$ ${resultMeli[i].price}');
   }
 
   // PdfGridRow row = grid.rows.add();
@@ -226,7 +226,7 @@ Future<void> _createPDF(Result resultMeli) async {
   List<int> bytes = document.save();
   document.dispose();
 
-  saveAndLaunchFile(bytes, '${resultMeli.seller.nickname}.pdf');
+  saveAndLaunchFile(bytes, '${resultMeli[0].seller.nickname}.pdf');
 }
 
 Future<Uint8List> _readImageData(String name) async {
@@ -250,7 +250,7 @@ void _mostrarAlerta(BuildContext context) {
           fontFamily: 'Harabara Mais Demo',
           fontSize: 20,
         ),
-        backgroundColor: Colors.yellow[400],
+        backgroundColor: Color.fromRGBO(254, 231, 1, 1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         title: Text("Desarrollado por:"),
         content: Column(
@@ -284,6 +284,7 @@ void _mostrarAlerta(BuildContext context) {
                 "Ok",
                 style: TextStyle(
                   color: Color.fromRGBO(31, 56, 123, 1),
+                  fontSize: 20,
                 ),
               ))
         ],
